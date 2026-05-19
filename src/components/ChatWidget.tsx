@@ -105,7 +105,7 @@ export default function ChatWidget() {
           Authorization: `Bearer ${import.meta.env.VITE_MISTRAL_API_KEY}`,
         },
         body: JSON.stringify({
-          model: 'mistral-small-latest',
+          model: 'ministral-8b-latest',
           messages: [
             { role: 'system', content: SYSTEM_PROMPT },
             ...updatedMessages,
@@ -113,20 +113,31 @@ export default function ChatWidget() {
         }),
       });
 
-      if (!response.ok) throw new Error(`API error ${response.status}`);
-
       const data = await response.json();
+
+      if (!response.ok) {
+        const errType = data?.type || data?.error?.type;
+        const errCode = data?.code || data?.error?.code;
+        const errMsg = data?.message || data?.error?.message || 'Erreur inconnue';
+        const details = [errType, errCode].filter(Boolean).join(' · ');
+        throw new Error(
+          `Mistral API ${response.status}${details ? ` [${details}]` : ''} — ${errMsg}`
+        );
+      }
+
       setMessages(prev => [
         ...prev,
         { role: 'assistant', content: data.choices[0].message.content },
       ]);
-    } catch {
+    } catch (err) {
+      const detail =
+        err instanceof Error ? err.message : 'Erreur réseau inconnue';
+      console.error('[ChatWidget] Mistral API error:', err);
       setMessages(prev => [
         ...prev,
         {
           role: 'assistant',
-          content:
-            'Désolé, le concierge temporel est momentanément indisponible. Réessayez dans un instant.',
+          content: `Désolé, le concierge temporel est momentanément indisponible. Réessayez dans un instant.\n\n⚠️ Détail technique : ${detail}`,
         },
       ]);
     } finally {
@@ -202,7 +213,7 @@ export default function ChatWidget() {
                   </div>
                 )}
                 <div
-                  className="max-w-[75%] px-3 py-2 rounded-2xl text-sm leading-relaxed"
+                  className="max-w-[75%] px-3 py-2 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap"
                   style={
                     msg.role === 'user'
                       ? { backgroundColor: '#D4AF37', color: '#0a0a0f' }
