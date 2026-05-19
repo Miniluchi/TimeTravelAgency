@@ -2,8 +2,7 @@
 
 > Webapp moderne pour une agence fictive de voyage temporel de luxe, développée dans le cadre du projet supervisé IA M1/M2.
 
-**Équipe** : [Prénom Nom 1], [Prénom Nom 2], [Prénom Nom 3], [Prénom Nom 4]  
-**Démo en ligne** : [URL Vercel]
+**Équipe** : Nathan OGER
 
 ---
 
@@ -50,17 +49,17 @@ La webapp offre une expérience immersive avec galerie de destinations et concie
 | Usage | Outil | Modèle |
 |---|---|---|
 | Génération de code | Bolt.new | Claude Sonnet 4.5 |
-| Itérations design | [Cursor / v0.dev] | — |
+| Itérations design | Cursor | — |
 | Chatbot conversationnel | Mistral AI API | `mistral-small-latest` |
-| Visuels destinations (Projet 1) | [Midjourney / DALL-E / autre] | — |
-| Vidéos d'ambiance (Projet 1) | [Runway / Sora / autre] | — |
+| Visuels destinations (Projet 1) | Midjourney | — |
+| Vidéos d'ambiance (Projet 1) | Runway | — |
 
 ---
 
 ## 🚀 Installation locale
 
 ```bash
-git clone [URL_REPO]
+git clone https://github.com/Miniluchi/TimeTravelAgency
 cd TimeTravelAgency
 npm install
 cp .env.example .env
@@ -122,7 +121,7 @@ Voir le fichier [`PROMPTS.md`](./PROMPTS.md) pour le détail des prompts utilis�
 
 ## 🤔 Réflexion sur le processus
 
-[2-3 phrases sur ce qui a bien fonctionné, ce qui a été difficile, et ce que vous changeriez la prochaine fois. Par exemple : la génération initiale avec Bolt.new a été très efficace pour poser la structure globale, mais les itérations fines sur l'UI ont nécessité beaucoup de prompts correctifs. La gestion de la clé API côté client reste un point à améliorer pour une mise en production réelle.]
+La génération initiale avec Bolt.new a été très efficace pour poser la structure globale et le design system en un seul prompt. Les itérations les plus longues ont porté sur l'intégration du chatbot Mistral et l'adaptation responsive du widget sur mobile. Pour la prochaine fois, je commencerais par définir le design system (couleurs, typographie) avant de générer les composants, afin de réduire le nombre de corrections a posteriori.
 
 ---
 
